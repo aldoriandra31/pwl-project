@@ -12,7 +12,7 @@
         <div class="card-body">
           <div class="form-group">
             <label for="nis">Nis</label>
-            <input type="text" class="form-control" id="nis" name="nis" placeholder="Enter Nip" value="{{ old('nis', $siswa->nis) }}">
+            <input type="text" class="form-control" id="nis" name="nis" placeholder="Enter Nis" value="{{ old('nis', $siswa->nis) }}">
             @error('nis')
               <small class="text-danger">{{ $message }}</small>
             @enderror

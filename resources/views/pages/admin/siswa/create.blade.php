@@ -18,7 +18,7 @@
           </div>
           <div class="form-group">
             <label for="nama">Nama</label>
-            <input type="text" class="form-control" id="nama" name="nama" placeholder="Enter Nama Guru" value="{{ old('nama') }}">
+            <input type="text" class="form-control" id="nama" name="nama" placeholder="Enter Nama Siswa" value="{{ old('nama') }}">
             @error('nama')
               <small class="text-danger">{{ $message }}</small>
             @enderror
