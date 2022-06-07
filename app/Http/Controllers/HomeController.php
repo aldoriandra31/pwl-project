@@ -10,7 +10,7 @@ class HomeController extends Controller
     {
         $user = auth()->user()->user_role->role->name;
         if ($user == 'admin') {
-            return view('pages.admin.index');
+            return redirect()->route('admin.home');
         } elseif ($user == 'guru') {
             return view('pages.guru.index');
         } elseif ($user == 'siswa') {

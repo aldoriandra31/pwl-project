@@ -27,6 +27,18 @@
   </div>
   <!-- ./wrapper -->
   @include('templates.partials.script')
+
+  {{-- sweat Alert --}}
+  @if (session()->has('success'))
+    <script>
+      Swal.fire({
+        title: 'Success!',
+        text: '{{ session()->get('success') }}',
+        icon: 'success',
+        confirmButtonText: 'Ok'
+      })
+    </script>
+  @endif
 </body>
 
 </html>

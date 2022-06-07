@@ -20,6 +20,6 @@ class AuthLevel
             return $next($request);
         }
 
-        abort(403);
+        abort(405);
     }
 }
