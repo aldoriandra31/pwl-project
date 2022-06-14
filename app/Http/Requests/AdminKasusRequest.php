@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Guru;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminGuruRequest extends FormRequest
+class AdminKasusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +25,9 @@ class AdminGuruRequest extends FormRequest
     public function rules()
     {
         return [
-            'nip' => ['required', 'numeric', Rule::unique('gurus')->ignore($this->guru)],
-            'nama' => ['required', 'string', 'max:255'],
-            'alamat' => ['required', 'string', 'max:255'],
-            'tanggal_lahir' => ['required', 'date'],
-            'jenis_kelamin_id' => ['required'],
+            'kode_kasus' => ['required', 'min:3', 'max:3', 'alpha_num', Rule::unique('kasuses')->ignore($this->kasu)],
+            'nama_kasus' => ['required'],
+            'poin_kasus' => ['required', 'numeric']
         ];
     }
 }

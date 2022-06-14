@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserRoleSeeder::class,
             JenisKelaminSeeder::class,
+            KasusSeeder::class
         ]);
     }
 }

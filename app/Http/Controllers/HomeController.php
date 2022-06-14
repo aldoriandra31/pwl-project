@@ -12,7 +12,7 @@ class HomeController extends Controller
         if ($user == 'admin') {
             return redirect()->route('admin.home');
         } elseif ($user == 'guru') {
-            return view('pages.guru.index');
+            return redirect()->route('guru.home');
         } elseif ($user == 'siswa') {
             return view('pages.siswa.index');
         }

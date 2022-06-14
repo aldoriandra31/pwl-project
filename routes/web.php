@@ -5,9 +5,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Guru\GuruController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\PelanggaranController;
 use App\Http\Controllers\Siswa\SiswaController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminGuruController;
+use App\Http\Controllers\Admin\AdminKasusController;
 use App\Http\Controllers\Admin\AdminSiswaController;
 
 /*
@@ -26,6 +28,7 @@ Route::prefix('admin')->middleware(['auth', 'level:admin'])->group(function () {
   Route::get('/', [AdminController::class, 'index'])->name('admin.home');
   Route::resource('/guru', AdminGuruController::class); // crud guru
   Route::resource('/siswa', AdminSiswaController::class); // crud siswa
+  Route::resource('/kasus', AdminKasusController::class); // crud Kasus
 });
 
 Route::prefix('guru')->middleware(['auth', 'level:guru'])->group(function () {
@@ -34,6 +37,10 @@ Route::prefix('guru')->middleware(['auth', 'level:guru'])->group(function () {
 
 Route::prefix('siswa')->middleware(['auth', 'level:siswa'])->group(function () {
   Route::get('/', [SiswaController::class, 'index'])->name('siswa.home');
+});
+
+Route::middleware(['auth', 'level:admin,guru'])->group(function () {
+  Route::resource('/pelanggaran', PelanggaranController::class);
 });
 
 Route::middleware('auth')->group(function () {

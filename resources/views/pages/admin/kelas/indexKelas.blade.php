@@ -12,11 +12,11 @@
             <thead>
               <tr>
                 <th style="width: 10px" class="text-center col-1">No</th>
-                <th class="col-2">Nis</th>
-                <th class="col-2">Nama</th>
-                <th class="col-2">Email</th>
-                <th class="col-2">Tanggal Lahir</th>
-                <th class="col-2">Alamat</th>
+                <th class="col-2 text-center">Nis</th>
+                <th class="col-2 text-center">Nama</th>
+                <th class="col-2 text-center">Email</th>
+                <th class="col-2 text-center">Tanggal Lahir</th>
+                <th class="col-2 text-center">Alamat</th>
                 <th colspan="2" class="text-center col-1">Action</th>
               </tr>
             </thead>

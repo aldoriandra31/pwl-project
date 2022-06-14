@@ -15,4 +15,9 @@ class Siswa extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function trxkasus()
+    {
+        return $this->hasMany(TrxKasus::class);
+    }
 }

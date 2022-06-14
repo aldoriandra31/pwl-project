@@ -33,7 +33,6 @@ class LoginController extends Controller
     public function destroy()
     {
         auth()->logout();
-
         return redirect()->route('login');
     }
 }
