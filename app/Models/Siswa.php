@@ -11,6 +11,8 @@ class Siswa extends Model
 
     protected $fillable = ['user_id', 'nama', 'nis', 'alamat', 'tanggal_lahir', 'jenis_kelamin_id'];
 
+    public $withCount = 'trxkasus';
+
     public function user()
     {
         return $this->belongsTo(User::class);

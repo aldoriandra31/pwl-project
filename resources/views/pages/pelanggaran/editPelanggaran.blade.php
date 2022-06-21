@@ -35,13 +35,13 @@
                 @enderror
               </div>
             @else
-            <input type="hidden" name="guru_id" value="{{ auth()->user()->guru->id }}">
+              <input type="hidden" name="guru_id" value="{{ auth()->user()->guru->id }}">
             @endif
             <div class="form-group">
               <label>Pelanggaran</label>
               <select class="form-control" name="kasus_id">
                 @foreach ($kasuses as $kasus)
-                  <option value="{{ $kasus->id }}" {{ old('kasus_id') == $kasus->id ? 'selected' : '' }}>
+                  <option value="{{ $kasus->id }}" {{ old('kasus_id', $kasuss->kasus_id) == $kasus->id ? 'selected' : '' }}>
                     {{ $kasus->nama_kasus }}</option>
                 @endforeach
               </select>
@@ -53,7 +53,7 @@
               <label for="kejadian">Tanggal Kejadian</label>
               <div class="input-group date">
                 <input type="date" class="form-control" id="kejadian" name="tanggal_pelanggaran"
-                  value="{{ old('tanggal_pelanggaran') }}">
+                  value="{{ old('tanggal_pelanggaran', $kasuss->tanggal_pelanggaran) }}">
               </div>
               @error('tanggal_pelanggaran')
                 <small class="text-danger">{{ $message }}</small>

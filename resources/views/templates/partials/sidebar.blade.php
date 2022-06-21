@@ -10,9 +10,12 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="{{ auth()->user()->gravatar() }}" class="img-circle elevation-2" alt="User Image">
+      </div>
       <div class="info">
-        <a href="#" class="d-block">Hallo {{ auth()->user()->name }}</a>
+        <a href="#" class="d-block">{{ auth()->user()->name }}</a>
       </div>
     </div>
     <!-- Sidebar Menu -->
@@ -97,8 +100,8 @@
           </li>
         @elseif (auth()->user()->user_role->role->name == 'guru')
           <li class="nav-item">
-            <a href="{{ route('guru.home') }}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{ route('guru.home') }}" class="nav-link {{ request()->routeIs('guru.*') ? 'active' : '' }}">
+              <i class="nav-icon fa-solid fa-gauge"></i>
               <p>
                 Dashboard
               </p>
@@ -106,17 +109,27 @@
           </li>
         @else
           <li class="nav-item">
-            <a href="{{ route('siswa.home') }}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{ route('siswa.home') }}" class="nav-link {{ request()->routeIs('siswa.home') ? 'active' : '' }}">
+              <i class="nav-icon fa-solid fa-gauge"></i>
               <p>
-                siswa
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('siswa.pelanggaran') }}"
+              class="nav-link {{ request()->routeIs('siswa.pelanggaran') ? 'active' : '' }}">
+              <i class="nav-icon fa-solid fa-person-circle-xmark"></i>
+              <p>
+                Pelanggaran
               </p>
             </a>
           </li>
         @endif
         @if (auth()->user()->user_role->role->name == 'admin' || auth()->user()->user_role->role->name == 'guru')
           <li class="nav-item">
-            <a href="{{ route('pelanggaran.index') }}" class="nav-link">
+            <a href="{{ route('pelanggaran.index') }}"
+              class="nav-link {{ request()->routeIs('pelanggaran.*') ? 'active' : '' }}">
               <i class="nav-icon fa-solid fa-person-circle-xmark"></i>
               <p>
                 Pelanggaran

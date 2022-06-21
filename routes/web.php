@@ -37,6 +37,8 @@ Route::prefix('guru')->middleware(['auth', 'level:guru'])->group(function () {
 
 Route::prefix('siswa')->middleware(['auth', 'level:siswa'])->group(function () {
   Route::get('/', [SiswaController::class, 'index'])->name('siswa.home');
+  Route::get('/pelangaran', [SiswaController::class, 'pelanggaran'])->name('siswa.pelanggaran');
+  Route::get('/cetak', [SiswaController::class, 'cetakPdf'])->name('export.pdf');
 });
 
 Route::middleware(['auth', 'level:admin,guru'])->group(function () {

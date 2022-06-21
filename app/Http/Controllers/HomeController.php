@@ -14,7 +14,7 @@ class HomeController extends Controller
         } elseif ($user == 'guru') {
             return redirect()->route('guru.home');
         } elseif ($user == 'siswa') {
-            return view('pages.siswa.index');
+            return redirect()->route('siswa.home');
         }
     }
 }

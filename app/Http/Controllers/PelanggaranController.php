@@ -17,14 +17,15 @@ class PelanggaranController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->user_role->role->name == 'guru') {
+        if (auth()->user()->user_role->role->name == 'admin') {
+            return view('pages.pelanggaran.indexPelanggaran', [
+                'trxkasus' => TrxKasus::with('siswa', 'guru', 'kasus')->simplePaginate(4)
+            ]);
+        } else if (auth()->user()->user_role->role->name == 'guru') {
             return view('pages.pelanggaran.indexPelanggaran', [
                 'trxkasus' => TrxKasus::whereGuruId(auth()->user()->guru->id)->with('siswa', 'guru', 'kasus')->simplePaginate(4)
             ]);
         }
-        return view('pages.pelanggaran.indexPelanggaran', [
-            'trxkasus' => TrxKasus::with('siswa', 'guru', 'kasus')->simplePaginate(4)
-        ]);
     }
 
     /**
@@ -88,7 +89,12 @@ class PelanggaranController extends Controller
      */
     public function edit(TrxKasus $pelanggaran)
     {
-        //
+        return view('pages.pelanggaran.editPelanggaran', [
+            'siswas' => Siswa::all(),
+            'gurus' => Guru::all(),
+            'kasuses' => Kasus::all(),
+            'kasuss' => $pelanggaran
+        ]);
     }
 
     /**
