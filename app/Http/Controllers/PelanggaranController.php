@@ -7,6 +7,9 @@ use App\Models\Kasus;
 use App\Models\Siswa;
 use App\Models\TrxKasus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\PelanggaranRequest;
 
 class PelanggaranController extends Controller
 {
@@ -48,16 +51,9 @@ class PelanggaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PelanggaranRequest $request)
     {
-        $kasus = $request->validate([
-            'siswa_id' => ['required'],
-            'guru_id' => ['required'],
-            'kasus_id' => ['required'],
-            'tanggal_pelanggaran' => ['required', 'date'],
-            'gambar' => ['nullable', 'image', 'file', 'max:2048'],
-        ]);
-
+        $kasus = $request->all();
         if ($request->hasFile('gambar')) {
             $kasus['gambar'] = $fileName = time() . $request->gambar->getClientOriginalName();
             $request->gambar->storeAs('public/kasus', $fileName);
@@ -81,12 +77,6 @@ class PelanggaranController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\TrxKasus  $pelanggaran
-     * @return \Illuminate\Http\Response
-     */
     public function edit(TrxKasus $pelanggaran)
     {
         return view('pages.pelanggaran.editPelanggaran', [
@@ -97,26 +87,33 @@ class PelanggaranController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TrxKasus  $pelanggaran
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, TrxKasus $pelanggaran)
+    public function update(PelanggaranRequest $request, TrxKasus $pelanggaran)
     {
-        //
+        // dd(storage_path('app/public/kasus/' . $pelanggaran->gambar));
+        $kasus = $request->all();
+        if ($request->File('gambar')) {
+            $kasus['gambar'] = $fileName = time() . $request->gambar->getClientOriginalName();
+            $request->gambar->storeAs('public/kasus', $fileName);
+        } else {
+            $kasus['gambar'] = $pelanggaran->gambar;
+        }
+        if (!($pelanggaran->gambar == 'default.png')) {
+            Storage::delete('public/kasus/' . $pelanggaran->gambar);
+            // File::delete(storage_path('app/public/kasus/' . $pelanggaran->gambar));
+        }
+        $pelanggaran->update($kasus);
+
+        return redirect()->route('pelanggaran.index')->with('success', 'Kasus berhasil diedit');;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\TrxKasus  $pelanggaran
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(TrxKasus $pelanggaran)
     {
-        //
+        $oldGambar = $pelanggaran->gambar;
+        $pelanggaran->delete();
+
+        if (!($oldGambar == 'default.png')) {
+            Storage::delete('public/kasus/' . $oldGambar);
+        }
+        return redirect()->route('pelanggaran.index')->with('success', 'Kasus berhasil diedit');;
     }
 }
